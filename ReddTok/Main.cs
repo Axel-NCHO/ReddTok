@@ -147,7 +147,7 @@ namespace ReddTok
                 var voice = service.SelectFemaleUsEnVoice();
 
                 AudioFactory factory = new();
-                factory.GenerateAudioFromText(post.Text + post.Comments[0].Text, voice, @"Speech/generated.wav");
+                factory.GenerateAudioFromText(post.Text + post.Comments[0].Text, voice, @"Speech/generated2.wav");
             }
             catch (Exception e)
             {
@@ -165,3 +165,4 @@ namespace ReddTok
 
     }
 }
+
