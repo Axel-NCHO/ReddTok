@@ -12,4 +12,29 @@
     <PackageReference Include="System.Speech" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DefaultItems\Music\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Bash\addText.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Bash\assemble.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Bash\merge.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Bash\silent.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Bash\trim.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DefaultItems\Background\Bg2.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

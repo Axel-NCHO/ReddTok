@@ -115,8 +115,8 @@ namespace SampleSynthesis
 
 
 using System;
-using ReddTok.Services;
 using ReddTok.Factories;
+using ReddTok.Services;
 
 namespace ReddTok
 {
@@ -127,40 +127,26 @@ namespace ReddTok
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
         public static void Main(string[] args)
         {
+            /*
+            RedditService serv = new();
+            var post = serv.GetPostFromReddit("https://www.reddit.com/r/AskReddit/comments/w9xx21/men_of_reddit_what_is_one_piece_of_advice_you/", 2);
+            var com1 = post.Comments[0].Text;
+            Console.WriteLine(com1);
+            var com2 = post.Comments[1].Text;
+            Console.WriteLine(com2);*/
 
-            RedditService redditService = new();
+            if (!Directory.Exists("Output")) Directory.CreateDirectory("Output");
 
-            string url = "https://www.reddit.com/r/AskReddit/comments/w997iz/whats_a_massive_scandal_controversy_that_people/";
+            string url = "https://www.reddit.com/r/AskReddit/comments/w9xx21/men_of_reddit_what_is_one_piece_of_advice_you/";
+            string outDir = "Output";
+            string outFile = "genewvideo.mp4";
 
-            try
-            {
-                var post = redditService.GetPostFromReddit(url, 2);
+            new VideoFactory().GenerateVideo(url, 2, null, null, null, outDir, outFile);
 
-                Console.WriteLine("Subreddit : " + post.Subreddit);
-                Console.WriteLine("Author : " + post.Author.Pseudo);
-                Console.WriteLine("Question : " + post.Text);
-
-                if (post.Comments.Count != 0) Console.WriteLine("One comment : " + post.Comments[0].Author.Pseudo +
-                     " - " + post.Comments[0].Text);
-
-                VoiceService service = new();
-                var voice = service.SelectFemaleUsEnVoice();
-
-                AudioFactory factory = new();
-                factory.GenerateAudioFromText(post.Text + post.Comments[0].Text, voice, @"Speech/generated2.wav");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            // Speak a string.  
+            Console.WriteLine("Finished ---------------------- ");
             
 
-            
-
-            
-            
+            // new VideoFactory().GenerateBackgroundVideo(null, null, null);
         }
 
     }
