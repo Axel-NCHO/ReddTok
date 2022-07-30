@@ -40,8 +40,8 @@ namespace ReddTok.Factories
         private void GenerateAudiosFromPost(Post post, Voice voice)
         {
             int index = 0;
-            audioFactory.GenerateAudioFromText(post.Text, voice, @$"Speech\generatedaudio{index}.mp3");
-            foreach (Comment comment in post.Comments) audioFactory.GenerateAudioFromText(comment.Text, voice, @$"Speech\generatedaudio{++index}.mp3");
+            audioFactory.GenerateAudioFromText(post.Text, voice, @$"Speech/generatedaudio{index}.mp3");
+            foreach (Comment comment in post.Comments) audioFactory.GenerateAudioFromText(comment.Text, voice, @$"Speech/generatedaudio{++index}.mp3");
         }
 
         public void GenerateBackgroundVideos(Post post, string? inputvideo, string? offset, string? duration)

@@ -141,7 +141,7 @@ namespace ReddTok
             string outDir = "Output";
             string outFile = "genewvideo.mp4";
 
-            new VideoFactory().GenerateVideo(url, 2, null, null, null, outDir, outFile);
+            new VideoFactory().GenerateVideo(url, 3, @"DefaultItems/Background/Bg1.mp4", "00:00:00", "00:00:25", outDir, outFile);
 
             Console.WriteLine("Finished ---------------------- ");
             

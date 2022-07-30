@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DefaultItems\Background\" />
     <Folder Include="DefaultItems\Music\" />
   </ItemGroup>
 
@@ -32,7 +33,7 @@
     <None Update="Bash\trim.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="DefaultItems\Background\Bg2.mp4">
+    <None Update="DefaultItems\Background\Bg1.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
