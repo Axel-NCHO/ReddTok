@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReddTok.Objects
+﻿namespace ReddTok.Objects
 {
+    /// <summary>
+    /// Represents a post
+    /// </summary>
     public class Post
     {
         public string Subreddit { get ; }
@@ -17,7 +14,12 @@ namespace ReddTok.Objects
         public List<Comment> Comments { get ; }
 
 
-
+        /// <summary>
+        /// Creates a new Post object
+        /// </summary>
+        /// <param name="subreddit"></param>
+        /// <param name="author"></param>
+        /// <param name="text">The title of the post</param>
         public Post(string subreddit, Author author, string text)
         {
             this.Subreddit = subreddit;

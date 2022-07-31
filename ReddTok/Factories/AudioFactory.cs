@@ -1,21 +1,22 @@
 ﻿using ReddTok.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Speech.Synthesis;
-using System.Speech.AudioFormat;
 using System.Globalization;
 
 namespace ReddTok.Factories
 {
+    /// <summary>
+    /// Performs audio related composed tasks
+    /// </summary>
     public class AudioFactory
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
         readonly SpeechSynthesizer synthesizer = new();
 
-        
+        /// <summary>
+        /// Generates audio file from a text sequence
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="voice"></param>
+        /// <param name="outputPath"></param>
         public void GenerateAudioFromText(string text, Voice voice, string outputPath)
         {
             // Config voice
@@ -29,6 +30,14 @@ namespace ReddTok.Factories
 
         }
 
+        /// <summary>
+        /// Get the name of the system installed that correspond to a specific description
+        /// </summary>
+        /// <param name="voice">The voice pattern that must be matched</param>
+        /// <returns>The name of the correponding system voice</returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="NullReferenceException"></exception>
         private string GetCorrespondantVoiceName(Voice voice)
         {
             List<VoiceInfo> installedVoiceInfoList = GetInstalledVoicesInfos();
@@ -62,6 +71,10 @@ namespace ReddTok.Factories
             return correspondantVoices.ElementAt<VoiceInfo>(0).Name;
         }
 
+        /// <summary>
+        /// Get informations about all installed voices
+        /// </summary>
+        /// <returns>Alist of the retrieved informations</returns>
         private List<VoiceInfo> GetInstalledVoicesInfos()
         {
             List<VoiceInfo> voices = new();

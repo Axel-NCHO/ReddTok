@@ -9,8 +9,19 @@ using Newtonsoft.Json.Linq;
 
 namespace ReddTok.Services
 {
+    /// <summary>
+    /// Converts reddit post data to exploitable objects
+    /// </summary>
     public class RedditService : IRedditService
     {
+        /// <summary>
+        /// Creates a Post object from reddit post url
+        /// </summary>
+        /// <param name="url">Url to reddit post</param>
+        /// <param name="commentsCount">Number of comments collected</param>
+        /// <returns>The Post object created</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="NullReferenceException"></exception>
         public Post GetPostFromReddit(string url, int? commentsCount)
         {
             // Fetch post from url
@@ -38,6 +49,12 @@ namespace ReddTok.Services
             return post;
         }
 
+        /// <summary>
+        /// Download JSON from web page 
+        /// </summary>
+        /// <param name="url">Url to the web page</param>
+        /// <returns>JSON file downloaded</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         private string GetStringFromUrl(string url)
         {
             using WebClient webClient = new();
@@ -46,6 +63,12 @@ namespace ReddTok.Services
             return json;
         }
 
+        /// <summary>
+        /// Parse JSON to create Post object
+        /// </summary>
+        /// <param name="postData">JToken containing data related to the reddit post</param>
+        /// <returns>The Post object created</returns>
+        /// <exception cref="NullReferenceException"></exception>
         private Post ParsePost(JToken postData)
         {
             var subreddit = postData.SelectToken("$.subreddit")?.Value<string>();
@@ -60,6 +83,12 @@ namespace ReddTok.Services
                 title);
         }
 
+        /// <summary>
+        /// Parse JSON to create Comment object
+        /// </summary>
+        /// <param name="commentData">JToken containing data reated to a reddit comment</param>
+        /// <returns>The Comment object created</returns>
+        /// <exception cref="NullReferenceException"></exception>
         private Comment ParseComment(JToken commentData)
         {
             var author = commentData.SelectToken("$.author")?.Value<string>();

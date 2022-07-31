@@ -1,39 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReddTok.Objects
+﻿namespace ReddTok.Objects
 {
+    /// <summary>
+    /// Represents a voice pattern
+    /// </summary>
     public class Voice
     {
         public Gender Gender { get; set; }
 
         public Language Language { get; set; }
 
-        private bool _isAuto;
 
-
+        /// <summary>
+        /// Creates a new voice pattern with customsettings
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="language"></param>
         public Voice(Gender gender, Language language)
         {
             Gender = gender;
             Language = language;
-            this._isAuto = false;
         }
 
-        public Voice() { this._isAuto = true; }
 
+        /// <summary>
+        /// Creates a new voice pattern with default settings
+        /// </summary>
+        public Voice() 
+        {
+            this.AutoConfig();
+        }
+
+        /// <summary>
+        /// Set default gender and language
+        /// </summary>
         public void AutoConfig()
         {
-            if (this._isAuto)
-            {
-                this.Gender = Gender.MALE;
-                this.Language = Language.EN_US;
-            } else
-            {
-                throw new InvalidOperationException("Manually configured Voice cannot perform AutoConfig method");
-            }
+            this.Gender = Gender.MALE;
+            this.Language = Language.EN_US;
         }
     }
 }

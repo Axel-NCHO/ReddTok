@@ -1,14 +1,11 @@
 ﻿using ReddTok.Objects;
 using ReddTok.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReddTok.Factories
 {
+    /// <summary>
+    /// Main factory : Performs calls to other services and factories to generate final video
+    /// </summary>
     public class VideoFactory
     {
         readonly RedditService redditService = new();
@@ -17,6 +14,19 @@ namespace ReddTok.Factories
         VideoService? videoService;
         string videoserviceOutputDirectory = "Temp";
 
+        /// <summary>
+        /// Generates final video
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="commentsCount"></param>
+        /// <param name="background"></param>
+        /// <param name="offset"></param>
+        /// <param name="duration"></param>
+        /// <param name="gender"></param>
+        /// <param name="language"></param>
+        /// <param name="outputDirectory"></param>
+        /// <param name="outputFile"></param>
+        /// <exception cref="NullReferenceException"></exception>
         public void GenerateVideo(string url, int? commentsCount, string? background, string? offset, string? duration, string? gender, string? language, string outputDirectory, string outputFile)
         {
             Console.WriteLine("Started generating video...");

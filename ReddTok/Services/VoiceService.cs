@@ -1,14 +1,18 @@
 ﻿using ReddTok.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ReddTok.Services
 {
+    /// <summary>
+    /// Performs voice related tasks
+    /// </summary>
     public class VoiceService
     {
+        /// <summary>
+        /// Choose a voice pattern
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
         public Voice SelectVoice(string? gender, string? language)
         {
             if (gender == "MALE" && language == "EN") return SelectMaleUsEnVoice();
@@ -18,6 +22,7 @@ namespace ReddTok.Services
             else return SelectDefaultVoice();
 
         }
+
         private Voice SelectFemaleUsEnVoice()
         {
             return new Voice(Gender.FEMALE, Language.EN_US);
@@ -40,9 +45,7 @@ namespace ReddTok.Services
 
         private Voice SelectDefaultVoice()
         {
-            Voice voice = new();
-            voice.AutoConfig();
-            return voice;
+            return new Voice();
         }
     }
 }

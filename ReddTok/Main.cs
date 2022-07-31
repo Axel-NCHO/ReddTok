@@ -9,7 +9,7 @@ namespace ReddTok
         static int commentsCount = 1;
         static string? background;
         static string? start;
-        static string? maxSeqDuration = "";
+        static string? maxSeqDuration;
         static string? gender;
         static string? language;
         static string outputDir = "";
@@ -19,7 +19,7 @@ namespace ReddTok
         // All customized : reddtok -url some_url -c commentsCount -bg back.mp4 -start 00:00:00 -msd 00:00:30 -g MALE -l EN -od od -of of.mp4
         // With default background : reddtok -url some_url -c commentsCount -od od -of of.mp4
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "<Pending>")]
+        
         public static void Main(string[] args)
         {
             EvaluateCommand(args);
@@ -35,6 +35,10 @@ namespace ReddTok
         }
 
 
+        /// <summary>
+        /// Evaluates command line arguments.
+        /// </summary>
+        /// <param name="args">Array that contains command line arguments</param>
         public static void EvaluateCommand(string[] args)
         {
             int index;
