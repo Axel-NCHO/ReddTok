@@ -15,6 +15,9 @@ namespace ReddTok.Services
         public string Duration = "";
         public string OutputDirectory = "";
         public string TempOutputDirectory;
+        private string BatchDirectory = "Batch";
+        private string tempTextFile = "text.txt";
+        private string tempListFile = "list.txt";
 
         public VideoService(string background, string offset, string duration, string outputDirectory)
         {
@@ -38,10 +41,10 @@ namespace ReddTok.Services
         {
             this.TrimVideo(Background, Offset, Duration, @$"{TempOutputDirectory}/{outputFileName}");
             text = this.FormatText(text);
-            File.WriteAllText($@"{TempOutputDirectory}/text.txt", text);
-            this.AddTextToVideo(@$"{TempOutputDirectory}\{outputFileName}", $@"{TempOutputDirectory}/text.txt", @$"{OutputDirectory}/{outputFileName}");
-            File.Delete(@$"{TempOutputDirectory}\{outputFileName}");
-            File.Delete($@"{TempOutputDirectory}/text.txt");
+            File.WriteAllText($@"{TempOutputDirectory}/{tempTextFile}", text);
+            this.AddTextToVideo(@$"{TempOutputDirectory}/{outputFileName}", $@"{TempOutputDirectory}/{tempTextFile}", @$"{OutputDirectory}/{outputFileName}");
+            File.Delete(@$"{TempOutputDirectory}/{outputFileName}");
+            File.Delete($@"{TempOutputDirectory}/{tempTextFile}");
         }
 
         private void TrimVideo(string inputvideo, string offset, string duration, string outputvideo)
@@ -50,7 +53,7 @@ namespace ReddTok.Services
 
             Process p = new();
             Console.WriteLine("Init...");
-            ProcessStartInfo pstart = new ProcessStartInfo(@"Bash/trim.bat", $"{inputvideo} {offset} {duration} {outputvideo}");
+            ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/trim.bat", $"{inputvideo} {offset} {duration} {outputvideo}");
             p.StartInfo = pstart;
             Console.WriteLine("Start...");
             p.Start();
@@ -75,7 +78,7 @@ namespace ReddTok.Services
         {
             Process p = new();
             Console.WriteLine("Init...");
-            ProcessStartInfo pstart = new ProcessStartInfo(@"Bash/addText.bat", $"{inputvideo} \"{text}\" {outputvideo}");
+            ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/addText.bat", $"{inputvideo} \"{text}\" {outputvideo}");
             p.StartInfo = pstart;
             Console.WriteLine("Start...");
             p.Start();
@@ -87,7 +90,7 @@ namespace ReddTok.Services
         {
             Process p = new();
             Console.WriteLine("Init...");
-            ProcessStartInfo pstart = new ProcessStartInfo(@"Bash/silent.bat", @$"{inputvideo} {OutputDirectory}/{outputvideo}");
+            ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/silent.bat", @$"{inputvideo} {OutputDirectory}/{outputvideo}");
             p.StartInfo = pstart;
             Console.WriteLine("Start...");
             p.Start();
@@ -99,7 +102,7 @@ namespace ReddTok.Services
         {
             Process p = new();
             Console.WriteLine("Init...");
-            ProcessStartInfo pstart = new ProcessStartInfo(@"Bash\merge.bat", @$"Speech\generatedbackground{index}.mp4 Speech\generatedaudio{index}.mp3 {OutputDirectory}/generated{index}.mp4");
+            ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/merge.bat", @$"{OutputDirectory}/generatedbackground{index}.mp4 {OutputDirectory}/generatedaudio{index}.mp3 {OutputDirectory}/generated{index}.mp4");
             p.StartInfo = pstart;
             Console.WriteLine("Start...");
             p.Start();
@@ -111,12 +114,12 @@ namespace ReddTok.Services
         {
             Process p = new();
             Console.WriteLine("Init...");
-            ProcessStartInfo pstart = new ProcessStartInfo(@"Bash\assemble.bat", $"\"{outputvideo}\"");
+            ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}\assemble.bat", $"\"{outputvideo}\"");
             p.StartInfo = pstart;
             Console.WriteLine("Start...");
             p.Start();
             p.WaitForExit();
-            File.Delete("list.txt");
+            File.Delete(tempListFile);
             Console.WriteLine("End...");
         }
     }

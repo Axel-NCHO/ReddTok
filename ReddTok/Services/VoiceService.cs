@@ -9,27 +9,36 @@ namespace ReddTok.Services
 {
     public class VoiceService
     {
-        public Voice SelectFemaleUsEnVoice()
+        public Voice SelectVoice(string? gender, string? language)
+        {
+            if (gender == "MALE" && language == "EN") return SelectMaleUsEnVoice();
+            if (gender == "MALE" && language == "FR") return SelectMaleFrVoice();
+            if (gender == "FEMALE" && language == "EN") return SelectFemaleUsEnVoice();
+            if (gender == "FEMALE" && language == "FR") return SelectFemaleFrVoice();
+            else return SelectDefaultVoice();
+
+        }
+        private Voice SelectFemaleUsEnVoice()
         {
             return new Voice(Gender.FEMALE, Language.EN_US);
         }
 
-        public Voice SelectFemaleFrVoice()
+        private Voice SelectFemaleFrVoice()
         {
             return new Voice(Gender.FEMALE, Language.FR);
         }
 
-        public Voice SelectMaleUsEnVoice()
+        private Voice SelectMaleUsEnVoice()
         {
             return new Voice(Gender.MALE, Language.EN_US);
         }
 
-        public Voice SelectMaleFRVoice()
+        private Voice SelectMaleFrVoice()
         {
             return new Voice(Gender.MALE, Language.FR);
         }
 
-        public Voice SelectDefaultVoice()
+        private Voice SelectDefaultVoice()
         {
             Voice voice = new();
             voice.AutoConfig();

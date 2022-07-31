@@ -18,19 +18,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Bash\addText.bat">
+    <None Update="Batch\addText.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Bash\assemble.bat">
+    <None Update="Batch\assemble.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Bash\merge.bat">
+    <None Update="Batch\merge.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Bash\silent.bat">
+    <None Update="Batch\silent.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Bash\trim.bat">
+    <None Update="Batch\trim.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="DefaultItems\Background\Bg1.mp4">

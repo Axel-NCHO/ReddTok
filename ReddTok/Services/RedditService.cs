@@ -36,14 +36,13 @@ namespace ReddTok.Services
             }
 
             return post;
-
-            throw new NotImplementedException();
         }
 
         private string GetStringFromUrl(string url)
         {
             using WebClient webClient = new();
             var json = webClient.DownloadString(url);
+            if (json == null) throw new ArgumentNullException("Wrong url format");
             return json;
         }
 
@@ -52,8 +51,7 @@ namespace ReddTok.Services
             var subreddit = postData.SelectToken("$.subreddit")?.Value<string>();
             var author = postData.SelectToken("$.author")?.Value<string>();
             var title = postData.SelectToken("$.title")?.Value<string>();
-            var text = postData.SelectToken("$.selftext")?.Value<string>()?.Trim(); //.Split('\n').Where(x => !string.IsNullOrWhiteSpace(x));
-            // var flair = postData.SelectToken("$.link_flair_text")?.Value<string>() ?? "";
+            var text = postData.SelectToken("$.selftext")?.Value<string>()?.Trim();
 
             if ((subreddit == null) || (author == null) || (title == null) || (text == null)) throw new NullReferenceException();
 
@@ -65,7 +63,7 @@ namespace ReddTok.Services
         private Comment ParseComment(JToken commentData)
         {
             var author = commentData.SelectToken("$.author")?.Value<string>();
-            var text = commentData.SelectToken("$.body")?.Value<string>()?.Trim(); //.Split('\n').Where(x => !string.IsNullOrWhiteSpace(x));
+            var text = commentData.SelectToken("$.body")?.Value<string>()?.Trim();
 
             if ((author == null) || (text == null)) throw new NullReferenceException();
 

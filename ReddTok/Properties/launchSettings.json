@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ReddTok": {
+      "commandName": "Project",
+      "commandLineArgs": "-url https://www.reddit.com/r/AskReddit/comments/wclubp/what_addiction_is_seen_as_completely_normal_by/ -c 5 -od Output -of genenew.mp4"
+    }
+  }
+}

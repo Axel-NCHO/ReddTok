@@ -15,39 +15,56 @@ namespace ReddTok.Factories
         readonly VoiceService voiceService = new();
         readonly AudioFactory audioFactory = new();
         VideoService? videoService;
+        string videoserviceOutputDirectory = "Temp";
 
-        public void GenerateVideo(string url, int? commnentsCount, string? background, string? offset, string? duration, string outputDirectory, string outputFile)
+        public void GenerateVideo(string url, int? commentsCount, string? background, string? offset, string? duration, string? gender, string? language, string outputDirectory, string outputFile)
         {
             Console.WriteLine("Started generating video...");
 
             // Create Post object
-            Post post = redditService.GetPostFromReddit(url, commnentsCount);
+            Post post = redditService.GetPostFromReddit(url, commentsCount);
 
-            // Generate audio && Background
-            Voice voice = voiceService.SelectMaleUsEnVoice();
+            // Config video service
+            this.InitVideoService(background, offset, duration);
+            if (videoService == null) throw new NullReferenceException("videoservice is null");
+
+            // Generate audio
+            Voice voice = voiceService.SelectVoice(gender, language);
             this.GenerateAudiosFromPost(post, voice);
+
+            // Generate background
             this.GenerateBackgroundVideos(post, background, offset, duration);
 
             // Merge 
             this.MergeBackgroundAndAudio(post, $@"{outputDirectory}\{outputFile}");
 
+            // Clean up
+            this.CleanUp();
+
             Console.WriteLine(@$"Finished generating video. File at {outputDirectory}\{outputFile}");
-
-
-
         }
 
         private void GenerateAudiosFromPost(Post post, Voice voice)
         {
+            if (videoService == null) throw new NullReferenceException("videoservice is null");
+
             int index = 0;
-            audioFactory.GenerateAudioFromText(post.Text, voice, @$"Speech/generatedaudio{index}.mp3");
-            foreach (Comment comment in post.Comments) audioFactory.GenerateAudioFromText(comment.Text, voice, @$"Speech/generatedaudio{++index}.mp3");
+            audioFactory.GenerateAudioFromText(post.Text, voice, @$"{videoService.OutputDirectory}/generatedaudio{index}.mp3");
+            foreach (Comment comment in post.Comments) audioFactory.GenerateAudioFromText(comment.Text, voice, @$"{videoService.OutputDirectory}/generatedaudio{++index}.mp3");
         }
+
+        private void InitVideoService(string? background, string? offset, string? duration)
+        {
+            this.videoService = ((background == null) || (offset == null) || (duration == null)) ? new VideoService($"{videoserviceOutputDirectory}") : new VideoService(background, offset, duration, $"{videoserviceOutputDirectory}");
+            if (!Directory.Exists(videoService.OutputDirectory)) Directory.CreateDirectory(videoService.OutputDirectory);
+        }
+
 
         public void GenerateBackgroundVideos(Post post, string? inputvideo, string? offset, string? duration)
         {
+            if (videoService == null) throw new NullReferenceException("videoservice is null");
+
             int index = 0;
-            videoService = ((inputvideo == null) || (offset == null) || (duration == null)) ? new VideoService("Speech") : new VideoService(inputvideo, offset, duration, "Speech");
             videoService.GetBackgroundVideo(post.Text, $"generatedbackground{index}.mp4");
             foreach (Comment comment in post.Comments) videoService.GetBackgroundVideo(comment.Text, $"generatedbackground{++index}.mp4");
         }
@@ -60,6 +77,13 @@ namespace ReddTok.Factories
             videoService.Merge(index); // Title
             foreach (Comment comment in post.Comments) videoService.Merge(++index); // Comments
             videoService.AssembleVideos(output);
+        }
+
+        private void CleanUp()
+        {
+            if (videoService == null) throw new NullReferenceException("videoservice is null");
+
+            Directory.Delete(videoService.OutputDirectory, true);
         }
         
     }
