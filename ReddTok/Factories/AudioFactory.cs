@@ -19,6 +19,7 @@ namespace ReddTok.Factories
         /// <param name="outputPath"></param>
         public void GenerateAudioFromText(string text, Voice voice, string outputPath)
         {
+            Console.WriteLine("Start generating audio track from text");
             // Config voice
             string correspondantVoiceName = this.GetCorrespondantVoiceName(voice);
             this.synthesizer.SelectVoice(correspondantVoiceName);
@@ -27,6 +28,7 @@ namespace ReddTok.Factories
             this.synthesizer.SetOutputToWaveFile(outputPath);
 
             this.synthesizer.Speak(text);
+            Console.WriteLine("Audio track is ready.");
 
         }
 

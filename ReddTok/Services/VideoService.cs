@@ -53,12 +53,15 @@ namespace ReddTok.Services
         /// Stored in the output directory configured for this video service</param>
         public void GetBackgroundVideo(string text, string outputFileName)
         {
+            Console.WriteLine("Start creating background video from text");
             this.TrimVideo(Background, Offset, Duration, @$"{TempOutputDirectory}/{outputFileName}");
             text = this.FormatText(text, 7);
             File.WriteAllText($@"{TempOutputDirectory}/{tempTextFile}", text);
             this.AddTextToVideo(@$"{TempOutputDirectory}/{outputFileName}", $@"{TempOutputDirectory}/{tempTextFile}", @$"{OutputDirectory}/{outputFileName}");
             File.Delete(@$"{TempOutputDirectory}/{outputFileName}");
             File.Delete($@"{TempOutputDirectory}/{tempTextFile}");
+            Console.WriteLine("Background video ready.");
+
         }
 
         /// <summary>
@@ -73,13 +76,13 @@ namespace ReddTok.Services
             if (!Directory.Exists(TempOutputDirectory)) Directory.CreateDirectory(TempOutputDirectory);
 
             Process p = new();
-            Console.WriteLine("Init...");
+            Console.WriteLine($"Init trimming offset {offset} duration {duration}...");
             ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/trim.bat", $"{inputvideo} {offset} {duration} {outputvideo}");
             p.StartInfo = pstart;
-            Console.WriteLine("Start...");
+            Console.WriteLine("Start trimming...");
             p.Start();
             p.WaitForExit();
-            Console.WriteLine("End...");
+            Console.WriteLine("End trimming");
         }
 
         /// <summary>
@@ -90,6 +93,7 @@ namespace ReddTok.Services
         /// <returns>The formatted text</returns>
         private string FormatText(string text, int wordsCountByLine)
         {
+            Console.WriteLine("Formatting text to fit background video...");
             var array = text.Split(' ').Where(x => !string.IsNullOrWhiteSpace(x));
             string result = "";
             for (int index=1; index<=array.Count(); index++)
@@ -110,13 +114,13 @@ namespace ReddTok.Services
         private void AddTextToVideo(string inputvideo, string text, string outputvideo)
         {
             Process p = new();
-            Console.WriteLine("Init...");
+            Console.WriteLine("Init adding text to background video...");
             ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/addText.bat", $"{inputvideo} \"{text}\" {outputvideo}");
             p.StartInfo = pstart;
-            Console.WriteLine("Start...");
+            Console.WriteLine("Start adding text...");
             p.Start();
             p.WaitForExit();
-            Console.WriteLine("End...");
+            Console.WriteLine("End adding text.");
         }
 
         /// <summary>
@@ -127,13 +131,13 @@ namespace ReddTok.Services
         public void SilentVideo(string inputvideo, string outputvideo)
         {
             Process p = new();
-            Console.WriteLine("Init...");
+            Console.WriteLine("Init removing audio track from video...");
             ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/silent.bat", @$"{inputvideo} {OutputDirectory}/{outputvideo}");
             p.StartInfo = pstart;
-            Console.WriteLine("Start...");
+            Console.WriteLine("Start removing audio track from video...");
             p.Start();
             p.WaitForExit();
-            Console.WriteLine("End...");
+            Console.WriteLine("End removing audio track from video.");
         }
 
         /// <summary>
@@ -143,13 +147,13 @@ namespace ReddTok.Services
         public void Merge(int index)
         {
             Process p = new();
-            Console.WriteLine("Init...");
+            Console.WriteLine("Init merging audio and video...");
             ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}/merge.bat", @$"{OutputDirectory}/generatedbackground{index}.mp4 {OutputDirectory}/generatedaudio{index}.mp3 {OutputDirectory}/generated{index}.mp4");
             p.StartInfo = pstart;
-            Console.WriteLine("Start...");
+            Console.WriteLine("Start merging...");
             p.Start();
             p.WaitForExit();
-            Console.WriteLine("End...");
+            Console.WriteLine("End merging.");
         }
 
         /// <summary>
@@ -159,14 +163,14 @@ namespace ReddTok.Services
         public void AssembleVideos(string outputvideo)
         {
             Process p = new();
-            Console.WriteLine("Init...");
+            Console.WriteLine("Init assembling video sequences...");
             ProcessStartInfo pstart = new ProcessStartInfo(@$"{BatchDirectory}\assemble.bat", $"\"{outputvideo}\"");
             p.StartInfo = pstart;
-            Console.WriteLine("Start...");
+            Console.WriteLine("Start asssembling...");
             p.Start();
             p.WaitForExit();
             File.Delete(tempListFile);
-            Console.WriteLine("End...");
+            Console.WriteLine("End assembling.");
         }
     }
 }

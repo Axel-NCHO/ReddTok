@@ -15,6 +15,7 @@ namespace ReddTok.Services
         /// <returns></returns>
         public Voice SelectVoice(string? gender, string? language)
         {
+            Console.WriteLine($"Choosing voice {gender} - {language} among system installed voices...");
             if (gender == "MALE" && language == "EN") return SelectMaleUsEnVoice();
             if (gender == "MALE" && language == "FR") return SelectMaleFrVoice();
             if (gender == "FEMALE" && language == "EN") return SelectFemaleUsEnVoice();

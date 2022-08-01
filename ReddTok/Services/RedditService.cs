@@ -25,6 +25,7 @@ namespace ReddTok.Services
         public Post GetPostFromReddit(string url, int? commentsCount)
         {
             // Fetch post from url
+            Console.WriteLine($"Fetching reddit post at url {url}");
             var json = this.GetStringFromUrl($"{url}.json");
             var jsonArray = JArray.Parse(json);
             if (!jsonArray.HasValues) throw new ArgumentException("No content under url");
@@ -34,7 +35,7 @@ namespace ReddTok.Services
             if (postData == null) throw new NullReferenceException("Post is null");
             var post = this.ParsePost(postData);
 
-            if (jsonArray.Count <= 1) return post;
+            if (jsonArray.Count <= 1) Console.WriteLine("End fetching reddit post");  return post;
 
             // Parse comments
             var comments = jsonArray[1]?.SelectTokens("$..children[?(@.kind == 't1')]").ToArray();
@@ -45,7 +46,7 @@ namespace ReddTok.Services
                 if (commentData == null) throw new NullReferenceException("Comment is null");
                 post.Comments.Add(this.ParseComment(commentData));
             }
-
+            Console.WriteLine("End fetching reddit post");
             return post;
         }
 

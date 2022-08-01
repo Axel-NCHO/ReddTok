@@ -95,6 +95,7 @@ namespace ReddTok.Factories
 
             try
             {
+                Console.WriteLine("Cleaning up temporary files...");
                 Directory.Delete(videoService.OutputDirectory, true);
             }
             catch(IOException e)
