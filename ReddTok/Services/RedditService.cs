@@ -35,7 +35,7 @@ namespace ReddTok.Services
             if (postData == null) throw new NullReferenceException("Post is null");
             var post = this.ParsePost(postData);
 
-            if (jsonArray.Count <= 1) Console.WriteLine("End fetching reddit post");  return post;
+            if (jsonArray.Count <= 1) { Console.WriteLine("End fetching reddit post"); return post; }
 
             // Parse comments
             var comments = jsonArray[1]?.SelectTokens("$..children[?(@.kind == 't1')]").ToArray();
