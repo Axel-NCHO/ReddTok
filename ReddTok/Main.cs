@@ -21,7 +21,7 @@ namespace ReddTok
 
         
         public static void Main(string[] args)
-        {
+        { 
             EvaluateCommand(args);
 
             if ((url.Equals("")) || (outputDir.Equals("")) || (outputFile.Equals(""))) {
@@ -35,6 +35,7 @@ namespace ReddTok
         }
 
 
+        /// <summary>
         /// <summary>
         /// Evaluates command line arguments.
         /// </summary>

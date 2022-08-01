@@ -93,7 +93,14 @@ namespace ReddTok.Factories
         {
             if (videoService == null) throw new NullReferenceException("videoservice is null");
 
-            Directory.Delete(videoService.OutputDirectory, true);
+            try
+            {
+                Directory.Delete(videoService.OutputDirectory, true);
+            }
+            catch(IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         
     }
