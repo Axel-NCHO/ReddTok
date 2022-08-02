@@ -8,8 +8,7 @@ ReddTok is a console application written in **C#** that use **FFMPEG** to perfor
 
 ## Principle
 For each comment, a video sequence is produced using the initial background video. The length of this sequence
-can be configured with the  
--msd option to fit the time needed to read a long comment. But, it it is greater than 
+can be configured with the -msd option to fit the time needed to read a long comment. But, it it is greater than 
 the length of the initial background video, -msd is equal to this length instead.  
 
 The Synthesizer class is used to retrieve system voices. For that, this applications will probably run only on 
