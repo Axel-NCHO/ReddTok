@@ -8,7 +8,8 @@ ReddTok is a console application written in **C#** that use **FFMPEG** to perfor
 
 ## Principle
 For each comment, a video sequence is produced using the initial background video. The length of this sequence
-can be configured with the -msd option to fit the time needed to read a long comment. But, it it is greater than 
+can be configured with the  
+-msd option to fit the time needed to read a long comment. But, it it is greater than 
 the length of the initial background video, -msd is equal to this length instead.  
 
 The Synthesizer class is used to retrieve system voices. For that, this applications will probably run only on 
@@ -40,8 +41,9 @@ The genders are reffered as MALE and FEMALE
 ## Use
 > - Go to the directory containing the ReddTok.exe with a cd or chdir command
 > - Do : ReddTok [ args ]
-> If one of -bg, -start or -msd is not specified, the generator works with all their default values.
-> If one of -g or -l is not specified, the generator works with both of their default values.
+
+If one of -bg, -start or -msd is not specified, the generator works with all their default values.  
+If one of -g or -l is not specified, the generator works with both of their default values.
 
 #### Example : 
 The command
