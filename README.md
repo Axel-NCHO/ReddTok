@@ -4,7 +4,7 @@
 It is very common to see videos of Reddit posts and comments on the social network TikTok. Usually, people
 take screenshots of Reddit posts to make those.  
 However, I am a little lazy annd I like programming so, I decided to automate the process.
-ReddTok is a console application written in **C#** that use **FFMPEG** to perform video related tasks.
+ReddTok is a console application written in **C#** that use **FFMPEG** to perform video related tasks and the .NET 6.0 library.
 
 ## Principle
 For each comment, a video sequence is produced using the initial background video. The length of this sequence
