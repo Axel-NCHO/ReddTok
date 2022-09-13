@@ -56,6 +56,10 @@ After adding a song on tiktok, we have this :
 
 https://user-images.githubusercontent.com/108560661/182269551-847fc307-444e-4a77-96f4-6e2863b50853.mp4
 
+## Contribution  
+You can fork this repository and contribute to the project. Inspire yourself from the coding style and the commit format.  
+
+## Evolution  
 To see the evolution of the program, I made a tiktok channel :  
 Name : @myreddtok  
 Link : tiktok.com/@myreddtok  
