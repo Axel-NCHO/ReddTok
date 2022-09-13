@@ -2,7 +2,7 @@
   "profiles": {
     "ReddTok": {
       "commandName": "Project",
-      "commandLineArgs": "-url https://www.reddit.com/r/AskReddit/comments/wcgdnj/how_do_you_feel_when_youre_nude/ -c 5 -od Output -of genenew.mp4"
+      "commandLineArgs": "-url https://www.reddit.com/r/AskReddit/comments/wcgdnj/how_do_you_feel_when_youre_nude/ -c 2 -g FEMALE -l DE -od Output -of genenew.mp4"
     }
   }
 }
