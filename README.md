@@ -21,7 +21,7 @@ But it would be great to implement it. An empty Music directory has been created
 MP4
 
 ## Supported languages for the voice
-French "FR", English (US) "EN_US", Deutch "DE" and Russian "RU".
+French "FR", English (US) "EN_US", Deutch "DE" and Russian "RU". These must be already installed on the system.
 The genders are reffered as MALE and FEMALE
 
 ## Command line options
