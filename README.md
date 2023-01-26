@@ -1,4 +1,6 @@
-# ReddTok
+<p align="center"><img src="https://user-images.githubusercontent.com/108560661/214959016-7ff0cf7a-04ef-4f36-9d5d-4271fc9b30ca.png" width="250" height="250"></p>
+
+# ReddTok  
 
 ## Description
 It is very common to see videos of Reddit posts and comments on the social network TikTok. Usually, people
@@ -14,7 +16,7 @@ the length of the initial background video, -msd is equal to this length instead
 The Synthesizer class is used to retrieve system voices. For that, this applications will probably run only on 
 windows.  
 
-The final video has no music added, sorry 😂. Only the voice reading the text. You can choose your own when posting on tiktok.  
+The final video has no music added, sorry. Only the voice reading the text. You can choose your own when posting on tiktok.  
 But it would be great to implement it. An empty Music directory has been created in DefaultItems.
 
 ## Video format supported
